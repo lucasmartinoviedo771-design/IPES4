@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-      # Si usas settings custom, descomenta la siguiente línea:
-      # DJANGO_SETTINGS_MODULE: your_project.settings
+      DJANGO_SETTINGS_MODULE: academia_project.settings_test
     strategy:
       fail-fast: false
       matrix:
