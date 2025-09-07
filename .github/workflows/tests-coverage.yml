@@ -27,11 +27,19 @@ jobs:
       - name: Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
 
-      - name: Sync deps 📦
+      - name: Prepare venv 📦
         run: |
           uv venv
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
-          uv sync --locked --extra test || uv sync --extra test
+          uv pip install --upgrade pip wheel setuptools
+
+      - name: Install deps (app + tests) 📚
+        run: |
+          if [ -f requirements.txt ]; then
+            uv pip install -r requirements.txt
+          fi
+          # Herramientas de test y lint
+          uv pip install pytest pytest-cov pytest-django ruff
 
       - name: Ruff (non-blocking) 🎨
         run: uv run ruff check . || true
