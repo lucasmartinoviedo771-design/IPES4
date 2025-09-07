@@ -42,13 +42,13 @@ jobs:
           uv pip install pytest pytest-cov pytest-django ruff
 
       - name: Ruff (non-blocking) 🎨
-        run: uv run ruff check . || true
+        run: ruff check . || true
 
       - name: Django check ✅
-        run: uv run python manage.py check
+        run: python manage.py check
 
       - name: Pytest + Coverage 🧪
-        run: uv run pytest -q
+        run: pytest --cov --cov-report=xml -q
 
       - name: Upload coverage.xml 📈
         if: always()
