@@ -31,7 +31,7 @@ jobs:
         run: |
           uv venv
           echo "$PWD/.venv/bin" >> $GITHUB_PATH
-          uv sync --locked --all-groups || uv sync --all-groups
+          uv sync --locked --extra test || uv sync --extra test
 
       - name: Ruff (non-blocking) 🎨
         run: uv run ruff check . || true
