@@ -1,0 +1,51 @@
+name: CI (Lint, Check & Tests)
+
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ main, dev ]
+  workflow_dispatch:
+
+jobs:
+  test_and_lint:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      # Si usas settings custom, descomenta la siguiente línea:
+      # DJANGO_SETTINGS_MODULE: your_project.settings
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [ "3.11", "3.12" ]
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v1
+
+      - name: Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
+
+      - name: Sync deps 📦
+        run: |
+          uv venv
+          echo "$PWD/.venv/bin" >> $GITHUB_PATH
+          uv sync --locked || uv sync
+
+      - name: Ruff (non-blocking) 🎨
+        run: uv run ruff check . || true
+
+      - name: Django check ✅
+        run: uv run python manage.py check
+
+      - name: Pytest + Coverage 🧪
+        run: uv run pytest -q
+
+      - name: Upload coverage.xml 📈
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.python-version }}
+          path: coverage.xml

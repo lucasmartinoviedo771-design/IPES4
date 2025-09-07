@@ -1,0 +1,16 @@
+# Python / entornos
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+
+# Coverage / Reports
+.coverage
+coverage.xml
+htmlcov/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

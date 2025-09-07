@@ -1,0 +1,82 @@
+/* ===== Estilos de grilla tipo "segundo print" ===== */
+
+.grid-table {
+  width: 100%;
+  border-collapse: collapse;     /* bordes unidos, líneas limpias */
+  table-layout: fixed;           /* columnas parejas */
+  font-size: 15px;
+}
+
+.grid-table thead th {
+  background: #F8F2E9;           /* encabezado suave */
+  color: #594E41;
+  font-weight: 600;
+  padding: 10px 12px;
+  border: 1px solid #E7DFD0;
+  text-align: left;
+}
+
+.grid-table td,
+.grid-table th {
+  border: 1px solid #E7DFD0;     /* líneas finas como en el ejemplo */
+}
+
+/* Columnas de hora (izq. y der.) */
+.grid-table .col-time {
+  background: #FBF8F2;           /* leve diferencia para la columna de hora */
+  color: #665E54;
+  font-weight: 600;
+  white-space: nowrap;
+  width: 120px;
+  padding: 10px 12px;
+}
+
+.grid-table .col-time-right {
+  background: #FBF8F2;
+  text-align: right;             /* Hora (Sábado) alineada a la derecha */
+  width: 140px;
+}
+
+/* Celdas clickeables (días) */
+.grid-table .col-slot {
+  background: #FFFFFF;
+  height: 44px;                  /* altura pareja por fila */
+  padding: 6px 10px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* Estado seleccionado (si lo usás para marcar bloques) */
+.grid-table .col-slot.on,
+.grid-table .ah-clickable.on {
+  background: #FDE9D8;
+  outline: 2px solid #E08A4A;    /* borde tipo “seleccionado” */
+  outline-offset: -2px;
+}
+
+/* Recreos: beige + cursiva (como en el print) */
+.grid-table td.is-break,
+.grid-table .col-slot.is-break {
+  background: #F5EEE3;           /* beige suave */
+  color: #847460;
+  font-style: italic;
+  text-align: center;
+  cursor: default;               /* no clickeable si es recreo */
+}
+
+/* Por si alguna celda de recreo recibiera la clase .on por error */
+.grid-table .col-slot.is-break.on {
+  outline: none;
+  background: #F5EEE3; /* Mantiene el color de recreo */
+}
+
+/* Un toque más de aire arriba/abajo del grid */
+#ah-grid {
+  margin-top: 8px;
+}
+
+/* Estilos para la nueva tabla-grilla */
+.tabla-grilla { width:100%; border-collapse: collapse; }
+.tabla-grilla th, .tabla-grilla td { border:1px solid #eee; padding:.5rem; text-align:center; }
+.tabla-grilla td.celda-vacia { cursor:pointer; user-select:none; }
+.tabla-grilla td.seleccionada { outline:2px solid #c47; background-color: #fde9d8; }

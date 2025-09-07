@@ -1,0 +1,78 @@
+/* === Grilla de horarios === */
+.tabla-grilla{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  font-size:14px;
+}
+
+.tabla-grilla th,
+.tabla-grilla td{
+  padding:10px 12px;
+  border-bottom:1px solid #EEE3D5;  /* líneas suaves */
+  border-right:1px solid #EEE3D5;
+  vertical-align:middle;
+}
+
+.tabla-grilla thead th{
+  background:#FAF7F2;              /* cabecera suave */
+  color:#5B4636;
+  font-weight:600;
+  text-align:center;
+}
+
+.tabla-grilla tbody th{
+  background:#FAF7F2;              /* columna de horas (L-V / Sáb) */
+  color:#5B4636;
+  font-weight:600;
+}
+
+.tabla-grilla th:first-child{       /* borde izquierdo */
+  border-left:1px solid #EEE3D5;
+}
+.tabla-grilla tbody tr:first-child th,
+.tabla-grilla tbody tr:first-child td{
+  border-top:1px solid #EEE3D5;
+}
+
+/* Columnas específicas para controlar ancho */
+.col-hora-lv, .col-hora-sab{ width:140px; }
+.col-sab{ width:100px; text-align:center; }
+
+/* Estado de celdas */
+.tabla-grilla td.celda-vacia{ background:#FFF; cursor:pointer; }
+
+/* fondo durazno para celdas ocupadas o seleccionadas */
+table.tabla-grilla td.celda-ocupada,
+table.tabla-grilla td.seleccionada{
+  background: #FFF1E6;             /* durazno */
+  box-shadow: inset 0 0 0 2px #E7A268;
+}
+
+table.tabla-grilla td.celda-ocupada:hover,
+table.tabla-grilla td.seleccionada:hover{
+  background: #FFE6D1;
+}
+
+/* Recreos (ya lo tenías, lo refuerzo) */
+table.tabla-grilla td.recreo{
+  background:#F7EFE6;
+  color:#8B5E34;
+  font-style:italic;
+  text-align:center;
+}
+
+/* Un poco de redondeo general al contenedor si querés */
+.card-grilla{
+  border:1px solid #EEE3D5;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+/* Selects / inputs (tu tema ya agrega .select/.input automáticamente, esto refuerza) */
+.select, .input{
+  background:#FFF;
+  border:1px solid #E6D9C9;
+  border-radius:10px;
+  padding:10px 12px;
+}
