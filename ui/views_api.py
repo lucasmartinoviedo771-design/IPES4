@@ -12,8 +12,6 @@ from django.views.decorators.http import require_GET, require_POST
 
 from academia_horarios.models import Bloque, Horario, MateriaEnPlan, TurnoModel
 
-from .logging_utils import sanitize_params
-
 PlanEstudios = apps.get_model("academia_core", "PlanEstudios")
 EspacioCurricular = apps.get_model("academia_core", "EspacioCurricular")
 Docente = apps.get_model("academia_core", "Docente")
