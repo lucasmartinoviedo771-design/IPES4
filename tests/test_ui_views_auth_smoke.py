@@ -6,47 +6,29 @@ from django.urls import URLPattern, URLResolver, get_resolver, reverse, NoRevers
 SAFE = {200, 301, 302, 403, 404, 405}
 
 
-def _collect_named_urls():
-    resolver = get_resolver()
-    names = set()
-
-    def walk(patterns):
-        for p in patterns:
-            if isinstance(p, URLPattern):
-                if p.name:
-                    names.add(p.name)
-            elif isinstance(p, URLResolver):
-                walk(p.url_patterns)
-
-    walk(resolver.url_patterns)
-    return names
+def _available_names() -> set[str]:
+    # Sólo nombres de URL (excluye callables)
+    return {k for k in get_resolver().reverse_dict.keys() if isinstance(k, str)}
 
 
 @pytest.mark.django_db
 def test_panel_dashboard_auth_smoke(client):
-    candidates = {"panel_dashboard", "ui:dashboard", "dashboard"}
-    available = _collect_named_urls()
-    found = next((n for n in candidates if n in available), None)
-    url = "/admin/"  # Default value
-
-    if not found:
-        pytest.skip("No se encontró una vista de dashboard nombrada")
-
-    try:
-        url = reverse(found)
-    except NoReverseMatch:
-        if ":" not in found:
-            try:
-                url = reverse(f"ui:{found}")
-            except NoReverseMatch:
-                pytest.skip(f"Reverse no disponible para {found}")
-        else:
-            pytest.skip(f"Reverse no disponible para {found}")
-
     User = get_user_model()
     User.objects.create_user(
         username="smoke", password="pass12345", is_staff=True, is_superuser=True
     )
     client.login(username="smoke", password="pass12345")
+
+    candidates = {"panel_dashboard", "ui:dashboard", "dashboard"}
+    available = _available_names()
+    found = next((n for n in candidates if n in available), None)
+    if not found:
+        pytest.skip("No se encontró una vista de dashboard nombrada")
+    url = "/"                      # valor seguro por defecto
+    try:
+        url = reverse(found)
+    except NoReverseMatch:
+        pytest.skip("NoReverseMatch para la vista de dashboard")
+
     resp = client.get(url, follow=False)
-    assert resp.status_code in SAFE
+    assert resp.status_code in {200, 302, 403}
