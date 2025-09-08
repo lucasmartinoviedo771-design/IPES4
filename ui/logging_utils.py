@@ -1,7 +1,11 @@
 # ui/logging_utils.py
-from collections.abc import Iterable
+from django.http import QueryDict
+
+SAFE_LOG_KEYS = {"plan_id", "materia_id", "docente_id", "profesorado_id"}
 
 
-def safe_params(request, allowed: Iterable[str]) -> dict:
-    # Loguea solo claves esperadas y trunca valores para evitar inyección
-    return {k: request.GET.get(k, "")[:100] for k in allowed if k in request.GET}
+def sanitize_params(qd: QueryDict) -> dict:
+    try:
+        return {k: qd.get(k) for k in qd.keys() if k in SAFE_LOG_KEYS}
+    except Exception:
+        return {}

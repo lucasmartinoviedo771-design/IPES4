@@ -1,0 +1,21 @@
+name: Dependabot Updates
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # diario 07:00 UTC (ajústalo si quieres)
+  workflow_dispatch:       # poder lanzarlo a mano
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: read           # <- imprescindible para tirar imágenes de ghcr.io
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Run Dependabot
+        uses: github/dependabot-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

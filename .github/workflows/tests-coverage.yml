@@ -64,8 +64,19 @@ jobs:
           DJANGO_SETTINGS_MODULE: academia_project.settings_prod
         run: python manage.py check --deploy --fail-level WARNING
 
-      - name: Pytest + Coverage 🧪
-        run: pytest -q
+      - name: Run tests (PR, no coverage gate)
+      if: github.event_name == 'pull_request'
+      run: |
+        pytest -q \
+          --cov=academia_core --cov=academia_horarios --cov=ui \
+          --cov-report=xml --cov-fail-under=0
+
+    - name: Run tests (push/main, enforce 85%)
+      if: github.event_name != 'pull_request'
+      run: |
+        pytest -q \
+          --cov=academia_core --cov=academia_horarios --cov=ui \
+          --cov-report=xml --cov-fail-under=85
 
       - name: Upload coverage.xml 📈
         if: always()
