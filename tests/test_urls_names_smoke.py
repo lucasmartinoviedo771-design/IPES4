@@ -3,6 +3,7 @@ from django.urls import get_resolver, reverse
 
 SAFE = {200, 301, 302, 403, 404, 405}
 
+
 def _names_no_args():
     # toma nombres sin argumentos posicionales conocidos
     for name, patterns in get_resolver().reverse_dict.items():
@@ -11,6 +12,7 @@ def _names_no_args():
         # heurística: si alguna variante no requiere args, probamos
         if any(not params for (route, params) in patterns[0]):
             yield name
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("name", list(_names_no_args())[:80])
