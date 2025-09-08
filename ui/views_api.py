@@ -269,7 +269,7 @@ def api_horarios_profesorado(request):
     if not carrera_id:
         return JsonResponse({"error": "Falta carrera_id"}, status=400)
 
-    qs = Horario.objects.filter(carrera_id=carrera_id)
+    qs = Horario.objects.filter(profesorado_id=carrera_id)
     if plan_id:
         qs = qs.filter(plan_id=plan_id)
 
@@ -284,7 +284,7 @@ def api_horarios_profesorado(request):
             "anio",
             "comision",
             "aula",
-            "materia__nombre",
+            "materia__materia__nombre",
             "docente__apellido",
             "docente__nombre",
         )
@@ -335,7 +335,7 @@ def api_horarios_docente(request):
             "anio",
             "comision",
             "aula",
-            "materia__nombre",
+            "materia__materia__nombre",
         )
     )
 
@@ -353,7 +353,7 @@ def api_horarios_docente(request):
                     "anio": r["anio"],
                     "comision": r["comision"],
                     "aula": r["aula"],
-                    "materia": r["materia__nombre"],
+                    "materia": r["materia__materia__nombre"],
                 }
             )
 

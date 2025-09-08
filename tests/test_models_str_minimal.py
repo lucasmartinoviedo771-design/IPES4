@@ -1,6 +1,7 @@
 import pytest
 from model_bakery import baker
 
+
 @pytest.mark.django_db
 def test_core_models_str_and_create():
     carrera = baker.make("academia_core.Carrera")
@@ -8,6 +9,7 @@ def test_core_models_str_and_create():
     assert carrera.pk and plan.pk
     assert str(carrera)
     assert str(plan)
+
 
 @pytest.mark.django_db
 def test_horarios_models_create_minimal():
