@@ -27,14 +27,12 @@ MODULES = [
     "academia_core.signals",
     "academia_core.context_processors",
     "academia_core.urls",
-
     # academia_horarios
     "academia_horarios.forms",
     "academia_horarios.services",
     "academia_horarios.signals",
     "academia_horarios.views",
     "academia_horarios.urls",
-
     # ui
     "ui.api",
     "ui.auth_views",
@@ -49,10 +47,10 @@ MODULES = [
     "ui.views_docentes",
     "ui.views_panel",
     "ui.urls",
-
     # proyecto
     "academia_project.urls",
 ]
+
 
 @pytest.mark.parametrize("mod", MODULES)
 def test_all_modules_import(mod):

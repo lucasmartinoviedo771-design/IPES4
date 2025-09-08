@@ -10,6 +10,7 @@ CANDIDATES = [
     "/ui/dashboard/",
 ]
 
+
 @pytest.mark.django_db
 def test_ui_paths_authenticated(client):
     User = get_user_model()

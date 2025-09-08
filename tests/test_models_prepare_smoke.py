@@ -4,6 +4,7 @@ from model_bakery import baker
 
 TARGET_APPS = ["academia_core", "academia_horarios"]
 
+
 @pytest.mark.django_db
 @pytest.mark.parametrize("app_label", TARGET_APPS)
 def test_models_prepare_and_str(app_label):
@@ -12,7 +13,6 @@ def test_models_prepare_and_str(app_label):
 
     for model in app_config.get_models():
         # Evitamos nombres muy problemáticos si hiciera falta:
-        
 
         # 1) prepare (no guarda => menos choques con constraints)
         try:

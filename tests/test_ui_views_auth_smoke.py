@@ -5,6 +5,7 @@ from django.urls import NoReverseMatch, URLPattern, URLResolver, get_resolver, r
 
 SAFE = {200, 301, 302, 403, 404, 405}
 
+
 def _collect_named_urls():
     resolver = get_resolver()
     names = set()
@@ -19,6 +20,7 @@ def _collect_named_urls():
 
     walk(resolver.url_patterns)
     return names
+
 
 @pytest.mark.django_db
 def test_panel_dashboard_auth_smoke(client):
@@ -41,7 +43,7 @@ def test_panel_dashboard_auth_smoke(client):
             pytest.skip(f"Reverse no disponible para {found}")
 
     User = get_user_model()
-    user = User.objects.create_user(
+    _ = User.objects.create_user(
         username="smoke", password="pass12345", is_staff=True, is_superuser=True
     )
     client.login(username="smoke", password="pass12345")

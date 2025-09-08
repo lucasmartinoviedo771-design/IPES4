@@ -12,6 +12,7 @@ def test_carrera_and_plan_str_not_empty():
     assert str(carrera).strip()
     assert str(plan).strip()
 
+
 @pytest.mark.django_db
 def test_any_model_creatable_smoke():
     baker.make("academia_core.Carrera")
@@ -24,8 +25,8 @@ def test_any_model_creatable_smoke():
                 "academia_horarios.TimeSlot",
                 inicio=time(8, 0),
                 fin=time(10, 0),
-                dia_semana=1,   # ajusta si tus choices difieren
-                turno="manana", # ajusta al choice real
+                dia_semana=1,  # ajusta si tus choices difieren
+                turno="manana",  # ajusta al choice real
             )
         except Exception:
             ts = None
