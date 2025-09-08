@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import include, path
 from django.views.generic import RedirectView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from ui.auth_views import RoleAwareLoginView  # 👈
 
@@ -14,6 +15,8 @@ def healthz(_):
 
 
 urlpatterns = [
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
     path("admin/", admin.site.urls),
     path("accounts/login/", RoleAwareLoginView.as_view(), name="login"),  # 👈
     path(
@@ -23,7 +26,10 @@ urlpatterns = [
     ),
     path(
         "panel/horarios/",
-        include(("academia_horarios.urls", "academia_horarios"), namespace="academia_horarios"),
+        include(
+            ("academia_horarios.urls", "academia_horarios"),
+            namespace="academia_horarios",
+        ),
     ),
     path(
         "panel/cargar/",

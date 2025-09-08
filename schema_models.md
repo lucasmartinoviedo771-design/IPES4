@@ -1,6 +1,6 @@
 # Inventario de modelos — academia_core
 
-## Profesorado  
+## Profesorado
 Tabla: `academia_core_profesorado`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -14,7 +14,7 @@ Tabla: `academia_core_profesorado`
 | `plan_vigente` | `CharField` |  |  |  |  |  |
 | `slug` | `SlugField` |  | ✔ |  | ✔ |  |
 
-## PlanEstudios  
+## PlanEstudios
 Tabla: `academia_core_planestudios`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -30,7 +30,7 @@ Tabla: `academia_core_planestudios`
 | `vigente` | `BooleanField` |  |  |  |  |  |
 | `observaciones` | `TextField` |  |  |  |  |  |
 
-## Estudiante  
+## Estudiante
 Tabla: `academia_core_estudiante`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -51,7 +51,7 @@ Tabla: `academia_core_estudiante`
 | `contacto_emergencia_tel` | `CharField` |  | ✔ |  |  |  |
 | `contacto_emergencia_parentesco` | `CharField` |  | ✔ |  |  |  |
 
-## EstudianteProfesorado  
+## EstudianteProfesorado
 Tabla: `academia_core_estudianteprofesorado`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -86,7 +86,7 @@ Tabla: `academia_core_estudianteprofesorado`
 | `promedio_general` | `DecimalField` |  | ✔ |  |  |  |
 | `legajo` | `CharField` |  |  |  |  |  |
 
-## EspacioCurricular  
+## EspacioCurricular
 Tabla: `academia_core_espaciocurricular`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -109,7 +109,7 @@ Tabla: `academia_core_espaciocurricular`
 | `formato` | `CharField` |  |  |  |  |  |
 | `libre_habilitado` | `BooleanField` |  |  |  |  |  |
 
-## Correlatividad  
+## Correlatividad
 Tabla: `academia_core_correlatividad`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -123,7 +123,7 @@ Tabla: `academia_core_correlatividad`
 | `requiere_todos_hasta_anio` | `PositiveSmallIntegerField` |  | ✔ |  |  |  |
 | `observaciones` | `CharField` |  |  |  |  |  |
 
-## Condicion  
+## Condicion
 Tabla: `academia_core_condicion`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -134,7 +134,7 @@ Tabla: `academia_core_condicion`
 | `nombre` | `CharField` |  |  |  |  |  |
 | `tipo` | `CharField` |  |  |  |  |  |
 
-## EspacioCondicion  
+## EspacioCondicion
 Tabla: `academia_core_espaciocondicion`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -143,7 +143,7 @@ Tabla: `academia_core_espaciocondicion`
 | `espacio` | `ForeignKey` | FK→EspacioCurricular |  |  |  |  |
 | `condicion` | `ForeignKey` | FK→Condicion |  |  |  |  |
 
-## Movimiento  
+## Movimiento
 Tabla: `academia_core_movimiento`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -163,7 +163,7 @@ Tabla: `academia_core_movimiento`
 | `ausencia_justificada` | `BooleanField` |  |  |  |  |  |
 | `creado` | `DateTimeField` |  |  |  |  |  |
 
-## InscripcionEspacio  
+## InscripcionEspacio
 Tabla: `academia_core_inscripcionespacio`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -181,7 +181,7 @@ Tabla: `academia_core_inscripcionespacio`
 | `created_at` | `DateTimeField` |  |  |  |  |  |
 | `updated_at` | `DateTimeField` |  |  |  |  |  |
 
-## InscripcionEspacioEstadoLog  
+## InscripcionEspacioEstadoLog
 Tabla: `academia_core_inscripcionespacioestadolog`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -193,7 +193,7 @@ Tabla: `academia_core_inscripcionespacioestadolog`
 | `usuario` | `ForeignKey` | FK→User | ✔ |  |  |  |
 | `nota` | `TextField` |  |  |  |  |  |
 
-## Docente  
+## Docente
 Tabla: `academia_core_docente`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -209,7 +209,7 @@ Tabla: `academia_core_docente`
 | `activo` | `BooleanField` |  |  |  |  |  |
 | `espacios` | `ManyToManyField` | M2M→EspacioCurricular |  |  |  | ✔ |
 
-## DocenteEspacio  
+## DocenteEspacio
 Tabla: `academia_core_docenteespacio`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -220,7 +220,7 @@ Tabla: `academia_core_docenteespacio`
 | `desde` | `DateField` |  | ✔ |  |  |  |
 | `hasta` | `DateField` |  | ✔ |  |  |  |
 
-## UserProfile  
+## UserProfile
 Tabla: `academia_core_userprofile`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -232,7 +232,7 @@ Tabla: `academia_core_userprofile`
 | `docente` | `ForeignKey` | FK→Docente | ✔ |  |  |  |
 | `profesorados_permitidos` | `ManyToManyField` | M2M→Profesorado |  |  |  | ✔ |
 
-## Actividad  
+## Actividad
 Tabla: `academia_core_actividad`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -244,7 +244,7 @@ Tabla: `academia_core_actividad`
 | `detalle` | `TextField` |  |  |  |  |  |
 | `creado` | `DateTimeField` |  |  |  |  |  |
 
-## InscripcionFinal  
+## InscripcionFinal
 Tabla: `academia_core_inscripcionfinal`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |
@@ -258,7 +258,7 @@ Tabla: `academia_core_inscripcionfinal`
 | `ausente` | `BooleanField` |  |  |  |  |  |
 | `ausencia_justificada` | `BooleanField` |  |  |  |  |  |
 
-## Horario  
+## Horario
 Tabla: `academia_core_horario`
 
 | Campo | Tipo | Relación | Null | PK | Unique | M2M |

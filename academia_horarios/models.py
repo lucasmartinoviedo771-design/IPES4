@@ -112,7 +112,8 @@ class TimeSlot(models.Model):
         indexes = [models.Index(fields=["dia_semana", "inicio", "fin"])]
         constraints = [
             models.CheckConstraint(
-                check=models.Q(inicio__lt=models.F("fin")), name="timeslot_inicio_lt_fin"
+                check=models.Q(inicio__lt=models.F("fin")),
+                name="timeslot_inicio_lt_fin",
             )
         ]
 

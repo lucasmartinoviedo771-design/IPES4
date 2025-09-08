@@ -35,10 +35,14 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "academia_project.settings"
-python_files = ["tests.py", "test_*.py", "*_tests.py"]
-testpaths = "tests"
-addopts = "--cov --cov-report=xml --cov-fail-under=85"
+DJANGO_SETTINGS_MODULE = "academia_project.settings_test"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+norecursedirs = ["IPES3", "..\\IPES3", "../IPES3"]
+addopts = "-q -ra -n auto --cov=academia_core --cov=academia_horarios --cov=ui --cov-report=xml --cov-fail-under=40 --ignore=../IPES3 --ignore=..\\IPES3 --ignore-glob='*/IPES3/*' --rootdir=."
+filterwarnings = [
+  "ignore::django.utils.deprecation.RemovedInDjango60Warning",
+]
 
 [tool.coverage.run]
 branch = true

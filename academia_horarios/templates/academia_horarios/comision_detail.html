@@ -38,7 +38,7 @@
     <table class="table">
       <thead>
         <tr>
-          
+
           <th>Día</th>
           <th>Inicio</th>
           <th>Fin</th>
@@ -49,7 +49,7 @@
       <tbody>
         {% for h in horarios %}
         <tr>
-          
+
           <td>{{ h.timeslot.get_dia_semana_display }}</td>
           <td>{{ h.timeslot.inicio|time:"H:i" }}</td>
           <td>{{ h.timeslot.fin|time:"H:i" }}</td>

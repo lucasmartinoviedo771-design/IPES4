@@ -12,11 +12,11 @@ from academia_core.auth_utils import role_of as _rol
 from .forms_espacios import EspacioForm  # ← Form para Materias/Espacios
 from .models import (
     Actividad,
+    Carrera,
     Docente,
     EspacioCurricular,  # ← Materias
     # === para Calificaciones (Movimiento) y alcances ===
     Estudiante,
-    Profesorado,
 )
 
 # ---------------- helpers de contexto para usar panel.html ----------------
@@ -42,7 +42,7 @@ def _profes_visibles(user):
     perfil = getattr(user, "perfil", None)
     if perfil and perfil.rol in {"BEDEL", "TUTOR"}:
         return perfil.profesorados_permitidos.all().order_by("nombre")
-    return Profesorado.objects.all().order_by("nombre")
+    return Carrera.objects.all().order_by("nombre")
 
 
 class PanelContextMixin:
@@ -287,12 +287,12 @@ class MateriaListView(LoginRequiredMixin, PanelContextMixin, SearchQueryMixin, L
     panel_action = "mat_list"
     panel_title = "Materias / Espacios"
     panel_subtitle = "Listado y búsqueda"
-    search_fields = ("nombre", "plan__resolucion", "profesorado__nombre", "anio")
+    search_fields = ("nombre", "plan__resolucion", "carrera__nombre", "anio")
 
     def get_queryset(self):
         qs = super().get_queryset().select_related("plan", "profesorado")
         return self.apply_search(qs).order_by(
-            "profesorado__nombre", "plan__resolucion", "anio", "cuatrimestre", "nombre"
+            "carrera__nombre", "plan__resolucion", "anio", "cuatrimestre", "nombre"
         )
 
 
@@ -339,7 +339,7 @@ class MateriaDeleteView(StaffOrGroupsRequiredMixin, DeleteView):
     def get_context_data(self, **kw):
         ctx = super().get_context_data(**kw)
         obj = ctx.get("object") or self.get_object()
-        rot = f"{getattr(obj, 'nombre', '')} · {getattr(obj, 'profesorado', '')} – {getattr(obj, 'plan', '')}"
+        rot = f"{getattr(obj, 'nombre', '')} · {getattr(obj, 'carrera', '')} – {getattr(obj, 'plan', '')}"
         ctx.update(
             {
                 "titulo": "Eliminar materia",

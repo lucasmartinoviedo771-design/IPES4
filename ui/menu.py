@@ -19,7 +19,11 @@ BEDEL_MENU = [
                 "path": "/personas/estudiantes/nuevo",
                 "icon": "user-plus",
             },
-            {"label": "Inscribir a Carrera", "path": "/inscripciones/carrera", "icon": "check"},
+            {
+                "label": "Inscribir a Carrera",
+                "path": "/inscripciones/carrera",
+                "icon": "check",
+            },
             {
                 "label": "Inscribir a Materias",
                 "url_name": "ui:inscribir_materias",
@@ -45,7 +49,11 @@ BEDEL_MENU = [
     {
         "title": "PLANIFICACIÓN",
         "items": [
-            {"label": "Oferta y Horarios", "path": "/panel/oferta/", "icon": "calendar"},
+            {
+                "label": "Oferta y Horarios",
+                "path": "/panel/oferta/",
+                "icon": "calendar",
+            },
             {"label": "Espacios Curriculares", "path": "/espacios", "icon": "layers"},
             {"label": "Planes de Estudio", "path": "/planes", "icon": "map"},
         ],

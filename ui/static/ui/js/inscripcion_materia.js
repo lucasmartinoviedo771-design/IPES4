@@ -12,7 +12,7 @@ import { resetSelect } from "./utils/form_helpers.js";
 
   const prefill = (window.__INSCR_MAT_PREFILL__) || {prof:"", plan:"", mat:""};
 
-  
+
 
   function populateSelect(sel, items, placeholder) {
     resetSelect(sel, placeholder);
@@ -28,9 +28,9 @@ import { resetSelect } from "./utils/form_helpers.js";
     }
   }
 
-  
 
-  
+
+
 
   async function loadMaterias(planId, trySelectPrefill=false) {
     selMat.disabled = true;

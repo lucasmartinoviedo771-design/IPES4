@@ -4,7 +4,7 @@
   else fn();
 })(function(){
 
-  
+
 
   const form = document.querySelector('#insc-carrera-form');
   if (!form) { console.warn('[insc-carrera] no existe #insc-carrera-form'); return; }

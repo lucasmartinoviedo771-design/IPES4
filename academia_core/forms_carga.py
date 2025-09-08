@@ -74,7 +74,7 @@ class InscripcionProfesoradoForm(forms.ModelForm):
         model = EstudianteProfesorado
         fields = [
             "estudiante",
-            "profesorado",
+            "carrera",
             "cohorte",
             "curso_introductorio",
             "doc_dni_legalizado",

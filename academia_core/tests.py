@@ -129,7 +129,8 @@ class MovimientoModelTest(TestCase):
             codigo="APROBADO", defaults={"nombre": "Aprobado", "tipo": "REG"}
         )
         self.condicion_final_aprobado, _ = Condicion.objects.get_or_create(
-            codigo="FINAL_APROBADO", defaults={"nombre": "Aprobado Final", "tipo": "FIN"}
+            codigo="FINAL_APROBADO",
+            defaults={"nombre": "Aprobado Final", "tipo": "FIN"},
         )
 
     def test_clean_method_valid_movimiento(self):

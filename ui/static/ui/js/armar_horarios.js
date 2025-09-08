@@ -102,7 +102,7 @@ async function cargarComisiones() {
     try {
         const data = await fetchJSON(API.comisiones(params));
         const comisiones = data.comisiones || [];
-        
+
         fillSelect(selComision, comisiones, 'seccion', 'id');
 
         if (comisiones.length > 1) {

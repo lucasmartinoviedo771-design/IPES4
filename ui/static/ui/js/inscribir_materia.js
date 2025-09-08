@@ -15,13 +15,13 @@ import { el, resetSelect } from "./utils/form_helpers.js";
   const prefillProf = document.getElementById("prefill_prof_id").value;
   const prefillPlan = document.getElementById("prefill_plan_id").value;
 
-  
+
 
   function setCount(n) {
     matsCount.textContent = n ? `${n} materias` : "";
   }
 
-  
+
 
   // Render correlatividades en chips
   function renderCorrCell(cell, corr) {

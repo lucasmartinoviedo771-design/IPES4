@@ -1,0 +1,21 @@
+[run]
+branch = True
+source =
+    academia_core
+    academia_horarios
+    ui
+omit =
+    */migrations/*
+    */tests/*
+    */settings*.py
+    */wsgi.py
+    */asgi.py
+    */apps.py
+    */admin.py
+    */management/*
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if TYPE_CHECKING:
+    if __name__ == "__main__":

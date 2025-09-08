@@ -1,12 +1,12 @@
 /*! panel_hooks.js — actualización: condicion sin fallback a estado + carga de espacios por data-espacios-url */
 (function () {
-  
+
   const norm = s => String(s||'').trim().toLowerCase();
 
   onReady(function(){
     try {
       // ===== 0) Utilidades ligeras =====
-      
+
       function dis(el, on){ if(!el) return; el.disabled = !!on; }
 
       // ===== 1) (Opcional) bloques que ya tengas: Adeuda / Certificación Docente =====

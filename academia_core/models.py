@@ -12,7 +12,11 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 
-from .utils_inscripciones import cumple_correlativas, tiene_aprobada, tiene_regularidad_vigente
+from .utils_inscripciones import (
+    cumple_correlativas,
+    tiene_aprobada,
+    tiene_regularidad_vigente,
+)
 
 
 # --- Choices administrativos ---
@@ -43,7 +47,11 @@ class Carrera(models.Model):
     nombre = models.CharField(max_length=255, unique=True)
     abreviatura = models.CharField("Abreviatura", max_length=50, blank=True)
     plan_vigente = models.ForeignKey(
-        "PlanEstudios", null=True, blank=True, on_delete=models.SET_NULL, related_name="+"
+        "PlanEstudios",
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
     )
 
     def __str__(self):
@@ -1012,7 +1020,10 @@ class CorePerms(models.Model):
             ("enroll_others", "Puede inscribir a terceros"),
             ("manage_correlatives", "Puede gestionar correlatividades"),
             ("publish_grades", "Puede publicar calificaciones"),
-            ("view_any_student_record", "Puede ver ficha/cartón de cualquier estudiante"),
+            (
+                "view_any_student_record",
+                "Puede ver ficha/cartón de cualquier estudiante",
+            ),
             ("edit_student_record", "Puede editar ficha/cartón de estudiantes"),
             ("view_inscripcioncarrera", "Puede ver inscripciones a carrera"),
             ("add_inscripcioncarrera", "Puede crear inscripciones a carrera"),

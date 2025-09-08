@@ -12,6 +12,8 @@ from django.views.decorators.http import require_GET, require_POST
 
 from academia_horarios.models import Bloque, Horario, MateriaEnPlan, TurnoModel
 
+from .logging_utils import safe_params
+
 PlanEstudios = apps.get_model("academia_core", "PlanEstudios")
 EspacioCurricular = apps.get_model("academia_core", "EspacioCurricular")
 Docente = apps.get_model("academia_core", "Docente")
@@ -39,17 +41,20 @@ def api_planes(request):
             .order_by("nombre")
             .values("id", "nombre")
         )
-    logger.info("api_planes params=%s -> %s items", request.GET.dict(), len(qs))
+    logger.info(
+        "api_planes params=%s -> %s items", safe_params(request, ["carrera", "carrera_id"]), len(qs)
+    )
     return JsonResponse({"results": list(qs)}, status=200)
 
 
 @require_GET
 def api_materias(request):
-    params = request.GET.dict()
-    logger.info("api_materias GET params=%s", params)
+    logger.info(
+        "api_materias GET params=%s", safe_params(request, ["plan", "plan_id", "periodo_id"])
+    )
 
-    plan_id = params.get("plan") or params.get("plan_id")
-    periodo_id = params.get("periodo_id")
+    plan_id = request.GET.get("plan") or request.GET.get("plan_id")
+    periodo_id = request.GET.get("periodo_id")
 
     if not plan_id:
         return JsonResponse({"error": "Falta parámetro plan_id"}, status=400)
@@ -92,7 +97,8 @@ def api_docentes(request):
 
     if carrera_id and materia_id:
         qs = qs.filter(
-            asignaciones__espacio_id=materia_id, asignaciones__espacio__plan__carrera_id=carrera_id
+            asignaciones__espacio_id=materia_id,
+            asignaciones__espacio__plan__carrera_id=carrera_id,
         )
 
     qs = (
@@ -216,7 +222,8 @@ def api_horario_save(request):
         comision_obj = Comision.objects.filter(id=comision_id).first()
         if not comision_obj:
             return JsonResponse(
-                {"ok": False, "error": "La comisión seleccionada no existe."}, status=404
+                {"ok": False, "error": "La comisión seleccionada no existe."},
+                status=404,
             )
         comision_seccion = comision_obj.seccion
 
@@ -262,6 +269,10 @@ def api_horario_save(request):
 
 @require_GET
 def api_horarios_profesorado(request):
+    logger.info(
+        "api_horarios_profesorado GET params=%s",
+        safe_params(request, ["profesorado_id", "carrera_id", "plan_id"]),
+    )
     carrera_id = request.GET.get("profesorado_id") or request.GET.get("carrera_id")
     plan_id = request.GET.get("plan_id")
     if not carrera_id:
@@ -317,6 +328,7 @@ def api_horarios_profesorado(request):
 
 @require_GET
 def api_horarios_docente(request):
+    logger.info("api_horarios_docente GET params=%s", safe_params(request, ["docente_id"]))
     docente_id = request.GET.get("docente_id")
     if not docente_id:
         return JsonResponse({"error": "Falta el parámetro docente_id"}, status=400)
@@ -324,7 +336,16 @@ def api_horarios_docente(request):
     qs = (
         Horario.objects.filter(docente_id=docente_id)
         .order_by("turno", "dia", "inicio")
-        .values("dia", "inicio", "fin", "turno", "anio", "comision", "aula", "materia__nombre")
+        .values(
+            "dia",
+            "inicio",
+            "fin",
+            "turno",
+            "anio",
+            "comision",
+            "aula",
+            "materia__nombre",
+        )
     )
 
     # Agrupar resultados por turno
@@ -350,6 +371,12 @@ def api_horarios_docente(request):
 
 @require_GET
 def api_horarios_materia_plan(request):
+    logger.info(
+        "api_horarios_materia_plan GET params=%s",
+        safe_params(
+            request, ["materia_id", "plan_id", "profesorado_id", "carrera_id", "anio", "comision"]
+        ),
+    )
     materia_id = request.GET.get("materia_id")
     plan_id = request.GET.get("plan_id")
     carrera_id = request.GET.get("profesorado_id") or request.GET.get("carrera_id")
@@ -406,7 +433,11 @@ def api_grilla_config(request):
         return JsonResponse(
             {
                 "rows": [
-                    {"ini": b["inicio_str"], "fin": b["fin_str"], "recreo": b["es_recreo"]}
+                    {
+                        "ini": b["inicio_str"],
+                        "fin": b["fin_str"],
+                        "recreo": b["es_recreo"],
+                    }
                     for b in bloques
                 ]
             }
@@ -434,7 +465,10 @@ def api_get_horarios_materia(request):
         return JsonResponse({"error": "Faltan parámetros"}, status=400)
 
     qs = Horario.objects.filter(
-        profesorado_id=profesorado_id, plan_id=plan_id, materia_id=materia_id, turno=turno
+        profesorado_id=profesorado_id,
+        plan_id=plan_id,
+        materia_id=materia_id,
+        turno=turno,
     ).values("dia", "inicio", "fin")
 
     return JsonResponse({"horarios": list(qs)})

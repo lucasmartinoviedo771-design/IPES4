@@ -1,6 +1,6 @@
 // ui/js/utils/loadPlanes.js
 (function(){
-  
+
   function setOptions(sel, items){
     if (!sel) return;
     sel.innerHTML = '<option value="">--------</option>' +

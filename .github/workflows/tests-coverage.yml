@@ -42,14 +42,30 @@ jobs:
           fi
           uv pip install -r requirements-test.txt
 
+      - name: pip-audit 🔐
+        run: |
+          uv pip install pip-audit
+          pip-audit -r requirements.txt || true
+
+      - name: Pre-commit ♻️
+        run: |
+          uv pip install pre-commit
+          pre-commit run --all-files
+
       - name: Ruff (non-blocking) 🎨
         run: ruff check . || true
 
       - name: Django check ✅
         run: python manage.py check
 
+      - name: Django deploy check 🔒
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          DJANGO_SETTINGS_MODULE: academia_project.settings_prod
+        run: python manage.py check --deploy --fail-level WARNING
+
       - name: Pytest + Coverage 🧪
-        run: pytest --cov --cov-report=xml -q
+        run: pytest -q
 
       - name: Upload coverage.xml 📈
         if: always()

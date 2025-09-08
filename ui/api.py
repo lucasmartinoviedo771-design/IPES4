@@ -20,7 +20,14 @@ def _best_label(obj):
     Construye una etiqueta legible sin importar cómo se llame el campo.
     Prioriza 'nombre', luego 'descripcion', 'titulo', 'resolucion' y termina en str(obj).
     """
-    for attr in ("nombre", "name", "descripcion", "descripcion_corta", "titulo", "resolucion"):
+    for attr in (
+        "nombre",
+        "name",
+        "descripcion",
+        "descripcion_corta",
+        "titulo",
+        "resolucion",
+    ):
         if hasattr(obj, attr):
             val = getattr(obj, attr)
             if val:
@@ -263,7 +270,10 @@ def api_correlatividades_por_espacio(request):
         apr = [{"id": c.requisito.pk, "label": _best_label(c.requisito)} for c in qs_apr]
 
         logger.info(
-            "api_correlatividades_por_espacio: espacio=%s reg=%s apr=%s", esp_id, len(reg), len(apr)
+            "api_correlatividades_por_espacio: espacio=%s reg=%s apr=%s",
+            esp_id,
+            len(reg),
+            len(apr),
         )
         return JsonResponse({"regular": reg, "aprobada": apr})
 

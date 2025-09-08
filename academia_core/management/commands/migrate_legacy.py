@@ -54,21 +54,32 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--commit", action="store_true", help="Aplica cambios. Sin esto, es dry-run."
+            "--commit",
+            action="store_true",
+            help="Aplica cambios. Sin esto, es dry-run.",
         )
         parser.add_argument(
-            "--limit", type=int, default=0, help="Limita filas por tabla (debug). 0 = sin límite."
+            "--limit",
+            type=int,
+            default=0,
+            help="Limita filas por tabla (debug). 0 = sin límite.",
         )
         parser.add_argument(
-            "--skip-espacios", action="store_true", help="No crea EspacioCurricular (join)."
+            "--skip-espacios",
+            action="store_true",
+            help="No crea EspacioCurricular (join).",
         )
 
         # NUEVOS flags para forzar nombres de tabla:
         parser.add_argument(
-            "--carrera-table", type=str, help="Nombre de tabla legacy para carreras/profesorados."
+            "--carrera-table",
+            type=str,
+            help="Nombre de tabla legacy para carreras/profesorados.",
         )
         parser.add_argument(
-            "--planes-table", type=str, help="Nombre de tabla legacy para planes de estudio."
+            "--planes-table",
+            type=str,
+            help="Nombre de tabla legacy para planes de estudio.",
         )
         parser.add_argument(
             "--materias-table", type=str, help="Nombre de tabla legacy para materias."

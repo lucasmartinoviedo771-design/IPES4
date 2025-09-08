@@ -17,7 +17,12 @@ class BaseCreateView(CreateView):
         if nxt:
             return nxt
         # 2) probá nombres conocidos de tu proyecto (ajustá la lista)
-        for name in ["insc_carrera_list", "ui:estudiantes_list", "ui:dashboard", "dashboard"]:
+        for name in [
+            "insc_carrera_list",
+            "ui:estudiantes_list",
+            "ui:dashboard",
+            "dashboard",
+        ]:
             try:
                 return reverse(name)
             except NoReverseMatch:

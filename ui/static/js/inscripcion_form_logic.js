@@ -32,13 +32,13 @@ document.addEventListener('DOMContentLoaded', function () {
             if (tituloSecundarioCheck) tituloSecundarioCheck.checked = false;
             if (tituloEnTramiteCheck) tituloEnTramiteCheck.checked = false;
             if (adeudaMateriasCheck) adeudaMateriasCheck.checked = false;
-            
+
             // Mostrar Título Superior
             if (tituloSuperiorGroup) tituloSuperiorGroup.style.display = 'block';
         } else {
             // Mostrar Título Secundario
             if (tituloSecundarioGroup) tituloSecundarioGroup.style.display = 'block';
-            
+
             // Ocultar Título Superior
             if (tituloSuperiorGroup) tituloSuperiorGroup.style.display = 'none';
             if (form.querySelector('[name="req_titulo_sup"]')) form.querySelector('[name="req_titulo_sup"]').checked = false;

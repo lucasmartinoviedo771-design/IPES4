@@ -59,7 +59,14 @@ class HorarioInlineForm(forms.Form):
 class DocenteAsignacionForm(forms.ModelForm):
     class Meta:
         model = DocenteAsignacion
-        fields = ["catedra", "docente", "condicion", "fecha_desde", "fecha_hasta", "activa"]
+        fields = [
+            "catedra",
+            "docente",
+            "condicion",
+            "fecha_desde",
+            "fecha_hasta",
+            "activa",
+        ]
         widgets = {
             "catedra": forms.HiddenInput(),
             "fecha_desde": forms.DateInput(attrs={"type": "date"}),
