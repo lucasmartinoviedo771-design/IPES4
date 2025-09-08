@@ -13,12 +13,12 @@ from .forms_admin import EstudianteCreateForm
 from .forms_carga import CargaNotaForm
 from .forms_correlativas import CorrelatividadForm
 from .models import (
+    Carrera,
     Correlatividad,
     EspacioCurricular,
     Estudiante,
     EstudianteProfesorado,
     InscripcionEspacio,
-    Profesorado,
 )
 
 
@@ -44,7 +44,7 @@ def panel(request: HttpRequest, **kwargs) -> HttpResponse:
         ctx.update(
             {
                 "total_estudiantes": Estudiante.objects.count(),
-                "total_profesorados": Profesorado.objects.count(),
+                "total_profesorados": Carrera.objects.count(),
                 "total_espacios": EspacioCurricular.objects.count(),
                 "total_inscripciones_carrera": EstudianteProfesorado.objects.count(),
                 "total_inscripciones_materia": InscripcionEspacio.objects.count(),
@@ -75,7 +75,9 @@ def panel(request: HttpRequest, **kwargs) -> HttpResponse:
 
             # Load existing correlatividades for this materia_principal
             existing_correlatividades_regulares = Correlatividad.objects.filter(
-                plan_id=plan_id, espacio_id=materia_principal_id, requisito="REGULARIZADA"
+                plan_id=plan_id,
+                espacio_id=materia_principal_id,
+                requisito="REGULARIZADA",
             ).values_list("requiere_espacio", flat=True)
 
             existing_correlatividades_aprobadas = Correlatividad.objects.filter(
@@ -112,11 +114,11 @@ def panel(request: HttpRequest, **kwargs) -> HttpResponse:
                 "estudiantes": Estudiante.objects.filter(activo=True).order_by(
                     "apellido", "nombre"
                 ),
-                "profesorados": Profesorado.objects.all().order_by("nombre"),
+                "profesorados": Carrera.objects.all().order_by("nombre"),
                 "planes_map": json.dumps(
                     {
                         p.id: [{"id": plan.id, "label": plan.resolucion} for plan in p.planes.all()]
-                        for p in Profesorado.objects.prefetch_related("planes")
+                        for p in Carrera.objects.prefetch_related("planes")
                     }
                 ),
                 "base_checks": [

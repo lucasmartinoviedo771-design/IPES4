@@ -76,7 +76,10 @@ def inscribir_estudiante_en_comision(estudiante, comision):
     for nuevo in nuevos:
         for viejo in mis_horarios:
             if (nuevo.timeslot.dia_semana == viejo.timeslot.dia_semana) and _solapa(
-                nuevo.timeslot.inicio, nuevo.timeslot.fin, viejo.timeslot.inicio, viejo.timeslot.fin
+                nuevo.timeslot.inicio,
+                nuevo.timeslot.fin,
+                viejo.timeslot.inicio,
+                viejo.timeslot.fin,
             ):
                 raise ValidationError(
                     "Conflicto de horarios con otra comisión ya inscripta.",

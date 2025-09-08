@@ -56,7 +56,13 @@ class TestHorariosValidations:
     def test_conflicto_docente_mismo_bloque(self):
         d = self._mk_docente()
         c = self._mk_comision()
-        base = {"docente": d, "comision": c, DIA_FIELD: 1, TURNO_FIELD: "M", BLOQUE_FIELD: "1"}
+        base = {
+            "docente": d,
+            "comision": c,
+            DIA_FIELD: 1,
+            TURNO_FIELD: "M",
+            BLOQUE_FIELD: "1",
+        }
         self._create_horario(**base)
         with pytest.raises((ValidationError, IntegrityError)):
             h = H(**base)

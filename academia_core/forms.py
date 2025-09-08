@@ -1,12 +1,12 @@
 from django import forms
 
 from .models import (
+    Carrera,
     Estudiante,
     EstudianteProfesorado,
     InscripcionMateria,
     InscripcionMesa,
     PlanEstudios,
-    Profesorado,
 )
 
 
@@ -30,7 +30,7 @@ class BaseStyledModelForm(forms.ModelForm):
 class InscripcionCarreraForm(BaseStyledModelForm):
     class Meta:
         model = EstudianteProfesorado
-        fields = ["estudiante", "profesorado", "plan", "cohorte"]
+        fields = ["estudiante", "carrera", "plan", "cohorte"]
         widgets = {
             "cohorte": forms.NumberInput(attrs={"min": 2000, "max": 2100}),
         }
@@ -42,7 +42,7 @@ class InscripcionCarreraForm(BaseStyledModelForm):
         self.fields["estudiante"].queryset = Estudiante.objects.filter(activo=True).order_by(
             "apellido", "nombre"
         )
-        self.fields["profesorado"].queryset = Profesorado.objects.all().order_by("nombre")
+        self.fields["profesorado"].queryset = Carrera.objects.all().order_by("nombre")
         # Plan arranca vacío; lo carga AJAX:
         self.fields["plan"].queryset = PlanEstudios.objects.none()
         self.fields["plan"].empty_label = "---------"

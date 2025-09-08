@@ -7,4 +7,3 @@ export function getCookie(name) {
 if (typeof window !== 'undefined') {
   window.getCookie = getCookie;
 }
-

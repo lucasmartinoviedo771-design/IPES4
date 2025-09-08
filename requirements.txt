@@ -45,3 +45,5 @@ vulture==2.14
 webencodings==0.5.1
 xhtml2pdf==0.2.17
 django-environ>=0.11
+drf-spectacular
+drf-spectacular-sidecar

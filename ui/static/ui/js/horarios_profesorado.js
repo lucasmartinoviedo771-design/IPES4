@@ -113,7 +113,7 @@ function detectarTurnoPrincipal(items) {
 async function loadProfesorado() {
     const profesorado_id = document.getElementById("hp_carrera")?.value;
     const plan_id = document.getElementById("hp_plan")?.value;
-    
+
     // Ocultar todas las secciones antes de cargar
     for (let i = 1; i <= 4; i++) {
         document.getElementById(`year-section-${i}`).style.display = 'none';

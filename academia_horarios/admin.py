@@ -42,8 +42,23 @@ class HorarioClaseAdmin(admin.ModelAdmin):
 
 @admin.register(Horario)
 class HorarioAdmin(admin.ModelAdmin):
-    list_display = ("materia", "dia", "inicio", "fin", "docente", "aula", "comision", "turno")
+    list_display = (
+        "materia",
+        "dia",
+        "inicio",
+        "fin",
+        "docente",
+        "aula",
+        "comision",
+        "turno",
+    )
     list_filter = ("profesorado", "plan", "anio", "dia", "docente", "turno")
-    search_fields = ("materia__nombre", "docente__apellido", "docente__nombre", "comision", "aula")
+    search_fields = (
+        "materia__nombre",
+        "docente__apellido",
+        "docente__nombre",
+        "comision",
+        "aula",
+    )
     raw_id_fields = ("materia", "plan", "profesorado", "docente")
     list_per_page = 25

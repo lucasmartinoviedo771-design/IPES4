@@ -92,7 +92,8 @@ def api_docentes(request):
 
     if carrera_id and materia_id:
         qs = qs.filter(
-            asignaciones__espacio_id=materia_id, asignaciones__espacio__plan__carrera_id=carrera_id
+            asignaciones__espacio_id=materia_id,
+            asignaciones__espacio__plan__carrera_id=carrera_id,
         )
 
     qs = (
@@ -216,7 +217,8 @@ def api_horario_save(request):
         comision_obj = Comision.objects.filter(id=comision_id).first()
         if not comision_obj:
             return JsonResponse(
-                {"ok": False, "error": "La comisión seleccionada no existe."}, status=404
+                {"ok": False, "error": "La comisión seleccionada no existe."},
+                status=404,
             )
         comision_seccion = comision_obj.seccion
 
@@ -324,7 +326,16 @@ def api_horarios_docente(request):
     qs = (
         Horario.objects.filter(docente_id=docente_id)
         .order_by("turno", "dia", "inicio")
-        .values("dia", "inicio", "fin", "turno", "anio", "comision", "aula", "materia__nombre")
+        .values(
+            "dia",
+            "inicio",
+            "fin",
+            "turno",
+            "anio",
+            "comision",
+            "aula",
+            "materia__nombre",
+        )
     )
 
     # Agrupar resultados por turno
@@ -406,7 +417,11 @@ def api_grilla_config(request):
         return JsonResponse(
             {
                 "rows": [
-                    {"ini": b["inicio_str"], "fin": b["fin_str"], "recreo": b["es_recreo"]}
+                    {
+                        "ini": b["inicio_str"],
+                        "fin": b["fin_str"],
+                        "recreo": b["es_recreo"],
+                    }
                     for b in bloques
                 ]
             }
@@ -434,7 +449,10 @@ def api_get_horarios_materia(request):
         return JsonResponse({"error": "Faltan parámetros"}, status=400)
 
     qs = Horario.objects.filter(
-        profesorado_id=profesorado_id, plan_id=plan_id, materia_id=materia_id, turno=turno
+        profesorado_id=profesorado_id,
+        plan_id=plan_id,
+        materia_id=materia_id,
+        turno=turno,
     ).values("dia", "inicio", "fin")
 
     return JsonResponse({"horarios": list(qs)})

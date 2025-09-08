@@ -25,7 +25,13 @@ from django.views.generic import (
 # Modelos
 from academia_core.models import Docente, Estudiante
 from academia_horarios.forms import DocenteAsignacionForm
-from academia_horarios.models import Catedra, Comision, HorarioClase, TimeSlot, TurnoModel
+from academia_horarios.models import (
+    Catedra,
+    Comision,
+    HorarioClase,
+    TimeSlot,
+    TurnoModel,
+)
 
 from .auth_views import ROLE_HOME  # Importar ROLE_HOME
 

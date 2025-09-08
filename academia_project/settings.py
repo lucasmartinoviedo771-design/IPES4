@@ -155,6 +155,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Terceros
     "rest_framework",
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     # Apps propias
     "academia_core.apps.AcademiaCoreConfig",
     "ui",
@@ -167,12 +169,15 @@ INSTALLED_APPS = [
 # =============================================================================
 
 MIDDLEWARE = [
+    # 👇 Necesario para que surtan efecto HSTS, SSL redirect, nosniff, etc.
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    # 👇 Necesario para protección CSRF
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
+    # 👇 Cabecera X-Frame-Options
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
@@ -302,6 +307,12 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "IPES4 API",
+    "VERSION": "1.0.0",
 }
 
 

@@ -12,10 +12,9 @@ class EspacioForm(forms.ModelForm):
             "anio",
             "cuatrimestre",
             "formato",
-            "nombre",
+            "materia",
             "horas",
         ]
         widgets = {
-            "nombre": forms.TextInput(attrs={"placeholder": "Nombre del espacio"}),
             "anio": forms.TextInput(attrs={"placeholder": "1° / 2° / 3° / 4°"}),
         }

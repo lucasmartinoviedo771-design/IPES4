@@ -2,7 +2,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import EspacioCurricular, Estudiante, PlanEstudios, Profesorado
+from .models import Carrera, EspacioCurricular, Estudiante, PlanEstudios
 
 # === Helpers ===============================
 # Ajustá este orden según tus modelos. Se usa para "renombrar"
@@ -25,7 +25,7 @@ def _rename_instance(obj, new_name: str):
 # === Crear (altas) =========================
 class ProfesoradoCreateForm(forms.ModelForm):
     class Meta:
-        model = Profesorado
+        model = Carrera
         fields = "__all__"
 
 
@@ -44,7 +44,7 @@ class EstudianteCreateForm(forms.ModelForm):
 # === Renombrar =============================
 class RenameProfesoradoForm(forms.Form):
     profesorado = forms.ModelChoiceField(
-        queryset=Profesorado.objects.all().order_by("nombre"), label="Profesorado"
+        queryset=Carrera.objects.all().order_by("nombre"), label="Carrera"
     )
     nuevo_nombre = forms.CharField(label="Nuevo nombre", max_length=255)
 
@@ -56,7 +56,7 @@ class RenameProfesoradoForm(forms.Form):
 
 class RenamePlanForm(forms.Form):
     profesorado = forms.ModelChoiceField(
-        queryset=Profesorado.objects.all().order_by("nombre"), label="Profesorado"
+        queryset=Carrera.objects.all().order_by("nombre"), label="Carrera"
     )
     plan = forms.ModelChoiceField(queryset=PlanEstudios.objects.none(), label="Plan")
     nuevo_nombre = forms.CharField(label="Nuevo nombre (p.ej. alias/resolución)", max_length=255)
@@ -68,12 +68,12 @@ class RenamePlanForm(forms.Form):
         prof = None
         if data and data.get("profesorado"):
             try:
-                prof = Profesorado.objects.get(pk=data.get("profesorado"))
-            except Profesorado.DoesNotExist:
+                prof = Carrera.objects.get(pk=data.get("profesorado"))
+            except Carrera.DoesNotExist:
                 prof = None
 
         if prof:
-            self.fields["plan"].queryset = PlanEstudios.objects.filter(profesorado=prof).order_by(
+            self.fields["plan"].queryset = PlanEstudios.objects.filter(carrera=prof).order_by(
                 "-vigente", "resolucion"
             )
         else:
@@ -89,7 +89,7 @@ class RenamePlanForm(forms.Form):
 
 class RenameEspacioForm(forms.Form):
     profesorado = forms.ModelChoiceField(
-        queryset=Profesorado.objects.all().order_by("nombre"), label="Profesorado"
+        queryset=Carrera.objects.all().order_by("nombre"), label="Carrera"
     )
     plan = forms.ModelChoiceField(queryset=PlanEstudios.objects.none(), label="Plan")
     espacio = forms.ModelChoiceField(queryset=EspacioCurricular.objects.none(), label="Espacio")
@@ -102,12 +102,12 @@ class RenameEspacioForm(forms.Form):
         prof = None
         if data and data.get("profesorado"):
             try:
-                prof = Profesorado.objects.get(pk=data.get("profesorado"))
-            except Profesorado.DoesNotExist:
+                prof = Carrera.objects.get(pk=data.get("profesorado"))
+            except Carrera.DoesNotExist:
                 prof = None
 
         if prof:
-            self.fields["plan"].queryset = PlanEstudios.objects.filter(profesorado=prof).order_by(
+            self.fields["plan"].queryset = PlanEstudios.objects.filter(carrera=prof).order_by(
                 "-vigente", "resolucion"
             )
         else:
@@ -124,7 +124,7 @@ class RenameEspacioForm(forms.Form):
 
         if plan:
             self.fields["espacio"].queryset = EspacioCurricular.objects.filter(
-                profesorado=plan.profesorado, plan=plan
+                carrera=plan.carrera, plan=plan
             ).order_by("anio", "cuatrimestre", "nombre")
         else:
             self.fields["espacio"].queryset = EspacioCurricular.objects.all().order_by(

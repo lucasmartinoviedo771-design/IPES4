@@ -32,7 +32,7 @@ console.log('OFERTA-AJAX v15 cargado');
     return parseInt(m[1],10) + parseInt(m[2],10)/60;
   };
 
-  
+
 
   function getMateria(it){
     return it.materia || it.materia_nombre || it['materia__nombre'] || '';
@@ -44,7 +44,7 @@ console.log('OFERTA-AJAX v15 cargado');
   }
 
   // --- Lógica de carga ---
-  
+
 
   async function cargarPlanes() {
     if (!selCarrera || !selPlan) return;
@@ -65,7 +65,7 @@ console.log('OFERTA-AJAX v15 cargado');
       const cnt = {manana:0,tarde:0,vespertino:0, sabado:0};
       (itemsByYear[anio] || []).forEach(it=>{
         const k = normTurno(it.turno);
-        if (k in cnt) cnt[k]++; 
+        if (k in cnt) cnt[k]++;
       });
       let chosen = Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0][0];
       if (cnt[chosen] === 0) {
