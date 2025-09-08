@@ -1,6 +1,7 @@
 import pytest
 from django.core.management import call_command
 
+
 @pytest.mark.django_db
 def test_django_check_runs_without_exception():
     # No aserción: si hay excepción, falla el test.
