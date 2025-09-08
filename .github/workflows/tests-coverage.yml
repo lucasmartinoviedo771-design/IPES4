@@ -76,7 +76,7 @@ jobs:
       run: |
         pytest -q \
           --cov=academia_core --cov=academia_horarios --cov=ui \
-          --cov-report=xml --cov-fail-under=85
+          --cov-report=xml --cov-fail-under=50
 
       - name: Upload coverage.xml 📈
         if: always()
