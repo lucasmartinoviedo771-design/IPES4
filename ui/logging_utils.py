@@ -1,5 +1,6 @@
 # ui/logging_utils.py
-from typing import Iterable
+from collections.abc import Iterable
+
 
 def safe_params(request, allowed: Iterable[str]) -> dict:
     # Loguea solo claves esperadas y trunca valores para evitar inyección

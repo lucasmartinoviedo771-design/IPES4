@@ -1,7 +1,7 @@
 # tests/test_ui_views_auth_smoke.py
 import pytest
 from django.contrib.auth import get_user_model
-from django.urls import URLPattern, URLResolver, get_resolver, reverse
+from django.urls import NoReverseMatch, URLPattern, URLResolver, get_resolver, reverse
 
 SAFE = {200, 301, 302, 403, 404, 405}
 
@@ -22,26 +22,26 @@ def _collect_named_urls():
     return names
 
 
-    @pytest.mark.django_db
-    def test_panel_dashboard_auth_smoke(client):
-        candidates = {"panel_dashboard", "ui:dashboard", "dashboard"}
-        available = _collect_named_urls()
-        found = next((n for n in candidates if n in available), None)
-        url = "/admin/"  # Default value
+@pytest.mark.django_db
+def test_panel_dashboard_auth_smoke(client):
+    candidates = {"panel_dashboard", "ui:dashboard", "dashboard"}
+    available = _collect_named_urls()
+    found = next((n for n in candidates if n in available), None)
+    url = "/admin/"  # Default value
 
-        if not found:
-            pytest.skip("No se encontró una vista de dashboard nombrada")
+    if not found:
+        pytest.skip("No se encontró una vista de dashboard nombrada")
 
-        try:
-            url = reverse(found)
-        except NoReverseMatch:
-            if ":" not in found:
-                try:
-                    url = reverse(f"ui:{found}")
-                except NoReverseMatch:
-                    pytest.skip(f"Reverse no disponible para {found}")
-            else:
+    try:
+        url = reverse(found)
+    except NoReverseMatch:
+        if ":" not in found:
+            try:
+                url = reverse(f"ui:{found}")
+            except NoReverseMatch:
                 pytest.skip(f"Reverse no disponible para {found}")
+        else:
+            pytest.skip(f"Reverse no disponible para {found}")
 
     User = get_user_model()
     User.objects.create_user(
