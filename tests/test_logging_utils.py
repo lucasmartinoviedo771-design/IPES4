@@ -1,4 +1,3 @@
-import pytest
 from django.http import QueryDict
 from ui.logging_utils import sanitize_params
 
