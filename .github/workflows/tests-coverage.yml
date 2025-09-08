@@ -65,7 +65,7 @@ jobs:
         run: python manage.py check --deploy --fail-level WARNING
 
       - name: Pytest + Coverage 🧪
-        run: pytest --cov --cov-report=xml -q
+        run: pytest -q
 
       - name: Upload coverage.xml 📈
         if: always()
