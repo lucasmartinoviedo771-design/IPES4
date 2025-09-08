@@ -13,7 +13,8 @@ jobs:
     permissions:
       contents: read
     env:
-      DJANGO_SECRET_KEY: test-ci-key   # clave dummy SOLO para CI/PRs
+      # Clave dummy SOLO para CI/PRs (dependabot no recibe Secrets)
+      DJANGO_SECRET_KEY: test-ci-key
     strategy:
       fail-fast: false
       matrix:
@@ -23,7 +24,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup uv
-        uses: astral-sh/setup-uv@v1
+        uses: astral-sh/setup-uv@v6
 
       - name: Python ${{ matrix.python-version }}
         run: uv python install ${{ matrix.python-version }}
