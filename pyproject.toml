@@ -3,8 +3,8 @@ name = "academia"
 version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
-    "django>=5.1,<5.2",
-    "djangorestframework>=3.16.1",
+    "django>=5.1,<5.2>",
+    "djangorestframework>=3.16.1>",
     "pillow>=11.3.0",
     "pymysql>=1.1.2",
 ]
@@ -55,4 +55,11 @@ omit = [
   "academia_core/views*.py",
   "academia_core/forms*.py",
   "ui/*",
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8",
+  "pytest-cov>=4",
+  "pytest-django>=4"
 ]

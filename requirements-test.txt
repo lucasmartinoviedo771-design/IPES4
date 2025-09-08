@@ -1,0 +1,5 @@
+pytest>=8
+pytest-cov>=4
+pytest-django>=4
+model-bakery>=1.18
+ruff

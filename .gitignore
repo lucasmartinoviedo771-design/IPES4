@@ -14,3 +14,11 @@ htmlcov/
 .idea/
 .DS_Store
 Thumbs.db
+# Secrets & media
+.env
+.env.*
+media/
+# Datos locales
+datos/
+backup*.json
+*.csv
