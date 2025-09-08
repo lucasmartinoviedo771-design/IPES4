@@ -1,7 +1,7 @@
 # tests/test_ui_views_auth_smoke.py
 import pytest
 from django.contrib.auth import get_user_model
-from django.urls import URLPattern, URLResolver, get_resolver, reverse, NoReverseMatch
+from django.urls import NoReverseMatch, get_resolver, reverse
 
 SAFE = {200, 301, 302, 403, 404, 405}
 
@@ -24,7 +24,7 @@ def test_panel_dashboard_auth_smoke(client):
     found = next((n for n in candidates if n in available), None)
     if not found:
         pytest.skip("No se encontró una vista de dashboard nombrada")
-    url = "/"                      # valor seguro por defecto
+    url = "/"  # valor seguro por defecto
     try:
         url = reverse(found)
     except NoReverseMatch:
