@@ -1,7 +1,7 @@
 # tests/test_ui_views_auth_smoke.py
 import pytest
 from django.contrib.auth import get_user_model
-from django.urls import NoReverseMatch, URLPattern, URLResolver, get_resolver, reverse
+from django.urls import URLPattern, URLResolver, get_resolver, reverse, NoReverseMatch
 
 SAFE = {200, 301, 302, 403, 404, 405}
 

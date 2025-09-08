@@ -12,7 +12,7 @@ from django.views.decorators.http import require_GET, require_POST
 
 from academia_horarios.models import Bloque, Horario, MateriaEnPlan, TurnoModel
 
-from .logging_utils import safe_params
+from .logging_utils import sanitize_params
 
 PlanEstudios = apps.get_model("academia_core", "PlanEstudios")
 EspacioCurricular = apps.get_model("academia_core", "EspacioCurricular")
@@ -41,17 +41,13 @@ def api_planes(request):
             .order_by("nombre")
             .values("id", "nombre")
         )
-    logger.info(
-        "api_planes params=%s -> %s items", safe_params(request, ["carrera", "carrera_id"]), len(qs)
-    )
+    logger.info("api_planes params=%s -> %s items", sanitize_params(request.GET), len(qs))
     return JsonResponse({"results": list(qs)}, status=200)
 
 
 @require_GET
 def api_materias(request):
-    logger.info(
-        "api_materias GET params=%s", safe_params(request, ["plan", "plan_id", "periodo_id"])
-    )
+    logger.info("api_materias GET params=%s", sanitize_params(request.GET))
 
     plan_id = request.GET.get("plan") or request.GET.get("plan_id")
     periodo_id = request.GET.get("periodo_id")
@@ -271,7 +267,7 @@ def api_horario_save(request):
 def api_horarios_profesorado(request):
     logger.info(
         "api_horarios_profesorado GET params=%s",
-        safe_params(request, ["profesorado_id", "carrera_id", "plan_id"]),
+        sanitize_params(request.GET),
     )
     carrera_id = request.GET.get("profesorado_id") or request.GET.get("carrera_id")
     plan_id = request.GET.get("plan_id")
@@ -328,7 +324,7 @@ def api_horarios_profesorado(request):
 
 @require_GET
 def api_horarios_docente(request):
-    logger.info("api_horarios_docente GET params=%s", safe_params(request, ["docente_id"]))
+    logger.info("api_horarios_docente GET params=%s", sanitize_params(request.GET))
     docente_id = request.GET.get("docente_id")
     if not docente_id:
         return JsonResponse({"error": "Falta el parámetro docente_id"}, status=400)
@@ -373,9 +369,7 @@ def api_horarios_docente(request):
 def api_horarios_materia_plan(request):
     logger.info(
         "api_horarios_materia_plan GET params=%s",
-        safe_params(
-            request, ["materia_id", "plan_id", "profesorado_id", "carrera_id", "anio", "comision"]
-        ),
+        sanitize_params(request.GET),
     )
     materia_id = request.GET.get("materia_id")
     plan_id = request.GET.get("plan_id")

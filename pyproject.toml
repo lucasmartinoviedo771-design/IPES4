@@ -4,7 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.11"
 dependencies = [
     "django>=5.1,<5.2>",
-    "djangorestframework>=3.16.1>",
+    " djangorestframework>=3.16.1>",
     "pillow>=11.3.0",
     "pymysql>=1.1.2",
 ]
@@ -39,7 +39,7 @@ DJANGO_SETTINGS_MODULE = "academia_project.settings_test"
 testpaths = ["tests"]
 python_files = ["test_*.py"]
 norecursedirs = ["IPES3", "..\\IPES3", "../IPES3"]
-addopts = "-q -ra -n auto --cov=academia_core --cov=academia_horarios --cov=ui --cov-report=xml --cov-fail-under=85 --ignore=../IPES3 --ignore=..\IPES3 --ignore-glob='*/IPES3/*' --rootdir=."
+addopts = "-q -ra -n auto --cov=academia_core --cov=academia_horarios --cov=ui --cov-report=xml --cov-fail-under=85 --ignore=../IPES3 --ignore=..\\IPES3 --ignore-glob='*/IPES3/*' --rootdir=."
 filterwarnings = [
   "ignore::django.utils.deprecation.RemovedInDjango60Warning",
 ]
